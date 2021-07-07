@@ -20,12 +20,18 @@ async function videoComposer() {
     const job = loadJob(jobName)
     log(`data ${JSON.stringify(job)}`)
 
+    let result;
     //Process modifiers
     job.modifiers.forEach((modifier) => {
         log(`processing modifier ${modifier.type}`)
         switch (modifier.type) {
             case 'image_resize':
-                image_resize(jobRootFolder, modifier)
+                result = image_resize(jobRootFolder, modifier)
+                result.then(() => {
+                    log('success')
+                }).catch(() => {
+                    log('fail')
+                })
                 break
         }
     })

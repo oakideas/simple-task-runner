@@ -1,7 +1,7 @@
 const gm = require('gm').subClass({imageMagick: true});
 const path = require('path')
 
-async function resize(basePath, params) {
+function resize(basePath, params) {
 
     return new Promise((resolve, reject) => {
         const source = path.resolve(basePath, params['source'])
