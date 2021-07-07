@@ -9,6 +9,10 @@ const image_resize = require('./modifiers/image').resize
 
 async function videoComposer() {
 
+    const afterEfectsData = {
+        objects: []
+    }
+
     const jobName = process.argv[2]
     log(`processing ${jobName}`)
 
@@ -21,6 +25,7 @@ async function videoComposer() {
     log(`data ${JSON.stringify(job)}`)
 
     let result;
+
     //Process modifiers
     job.modifiers.forEach((modifier) => {
         log(`processing modifier ${modifier.type}`)
@@ -34,9 +39,22 @@ async function videoComposer() {
                 })
                 break
         }
+        afterEfectsData.objects.push(modifier);
     })
+
+    //export data to script
+    saveAfterEfectsScript(afterEfectsData)
+
     //Export Video
+
     //Send to targets
+    job.targets.forEach((target) => {
+        log(`processing target ${target.type}`)
+        switch (target.type) {
+            case "youtube":
+                break;
+        }
+    })
 
 
     function log(log) {
@@ -47,6 +65,12 @@ async function videoComposer() {
         const fileBuffer = fs.readFileSync(file, 'utf-8')
         const job = JSON.parse(fileBuffer)
         return job
+    }
+
+    function saveAfterEfectsScript(content) {
+        const scriptPath = path.resolve(jobRootFolder, './output/after_efects_data.js')
+        const data = JSON.stringify(content)
+        return fs.writeFileSync(scriptPath, `var content = ${data}`)
     }
 }
 
