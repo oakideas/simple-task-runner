@@ -8,17 +8,16 @@ automate video creation
 {
     "modifiers": [
         {
-            
+            "type": "image_resize",
+            "source": "images/1.png",
+            "target": "output/1.png",
+            "width": 1920,
+            "height": 1080
         }
     ],
     "targets": [
         {
-            "type": "youtube",
-            ...
-        },
-        {
-            "type": "folder",
-            "target": "/output/"
+            "type": "youtube"
         }
     ]
 }
