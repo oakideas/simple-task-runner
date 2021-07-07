@@ -1,8 +1,23 @@
 # video-composer
-automate video creation
+This project intends to implement an audio and image processing pipeline to automate video production.
 
+At this moment I have no intention of implementing it completely, but just testing the concepts, in any case I intend to complete a minimally functional version as a proof of concept containing:
+- ability to resize image
+- ability to cut audio and add fade
+- creation of a script to be used by an after effects template
+- sending content to youtube
 
-## Input 
+This project was inspired by this other open source project https://github.com/filipedeschamps/video-maker , it's also a proof of concept, but right now it's more complete and documented than this one :)
+
+## Usage
+
+node index.js job_path
+
+ex. node index.js ./jobs/example1/job.js
+
+## Job.js
+
+it's the pipeline configuration
 
 ```
 {
