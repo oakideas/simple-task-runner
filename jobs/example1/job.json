@@ -1,15 +1,27 @@
 {
     "modifiers": [
         {
+            "name": "cover",
             "type": "image_resize",
-            "source": "images/1.png",
-            "target": "output/1.png",
+            "source": "./images/1.jpeg",
+            "target": "./output/1.png",
             "width": 1920,
             "height": 1080
+        },
+        {
+            "name": "intro",
+            "type": "audio_cut",
+            "source": "./audio/Lobo Loco - Easy Walker (ID 1423).mp3",
+            "target": "./output/1.mp3",
+            "start": 10,
+            "duration": 60,
+            "fade_in": 10,
+            "fade_out": 10
         }
     ],
     "targets": [
         {
+            "name": "youtube",
             "type": "youtube"
         }
     ]
