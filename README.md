@@ -15,9 +15,15 @@ node index.js job_path
 
 ex. node index.js ./jobs/example1/job.js
 
-## Job.js
+## Concepts
 
-it's the pipeline configuration
+### Job
+
+It's a pipeline configuration
+
+### Job.js
+
+it's the configuration file
 
 ```
 {
@@ -32,11 +38,11 @@ it's the pipeline configuration
         },
         {
             "name": "intro",
-            "type": "audio_crop",
+            "type": "audio_cut",
             "source": "./audios/1.mp3",
             "target": "./output/1.mp3",
             "start": 5,
-            "end": 35,
+            "duration": 35,
             "fade_in": 0,
             "fade_out": 0
         }
@@ -49,3 +55,25 @@ it's the pipeline configuration
     ]
 }
 ```
+
+## examples
+
+### example1
+
+TODO: describe the pipeline
+
+Credits:
+Lobo Loco - Easy Walker (ID 1423).mp3 from https://freemusicarchive.org/music/Lobo_Loco/hot-summer-place/easy-walker-id-1423
+
+
+
+## Dependencies
+
+- ffmpeg
+- imageMagic
+
+
+### Installing dependencies on mac os big sur
+
+
+arch -arm64 brew install ffmpeg
