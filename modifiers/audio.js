@@ -2,7 +2,7 @@ const spawn = require('child_process').spawn
 const path = require('path')
 
 
-function cut(basePath, params) {
+async function cut(basePath, params) {
 
     return new Promise((resolve, reject) => {
 
@@ -11,40 +11,46 @@ function cut(basePath, params) {
         const target = path.resolve(basePath, params['target'])
 
         let cmd = [
+            '-hide_banner',
+            '-loglevel', 'error',
             '-ss', params['start'],
-            '-t', params['duration'],
-            '-i', source,
+            '-to', params['duration'],
+            '-i', source
             // '-acodec', 'copy',
-            '-y'
         ]
 
         if (params['fade_in'] > 0 || params['fade_out'] > 0) {
             cmd.push('-af');
 
-            let fade_expression;
+            let fade_expression = [];
             if(params['fade_in'] > 0) {
-                fade_expression = `afade=t=in:ss=0:d=${params['fade_in']}`
+                fade_expression.push(`afade=t=in:ss=0:d=${params['fade_in']}`);
             }
             if(params['fade_out'] > 0) {
                 const fade_out_start = params['duration'] - params['start'] - params['fade_out']
-                fade_expression += `,afade=t=out:st=${fade_out_start}:d=${params['fade_out']}`
-            }
+                fade_expression.push(`afade=t=out:st=${fade_out_start}:d=${params['fade_out']}`)
+            } 
 
-            cmd.push(`'${fade_expression}'`);
+            cmd.push(fade_expression.join(','));
         }
 
+        cmd.push('-y')
         cmd.push(target)
-
+        
         const ffmpeg = spawn(ffmpegPath, cmd)
 
-        ffmpeg.stderr.setEncoding("utf8")
-        ffmpeg.stdout.on('data', (data) => {
-            process.stdout.write(data);
-        })
+        ffmpeg.stderr.pipe(process.stdout)
 
-        ffmpeg.on('close', () => {
-            console.log('Audio created');
-            resolve();
+        ffmpeg.stdout.on('data', (data) => {
+            process.stdout.write(data)
+        })
+        ffmpeg.on('exit', (code) => {
+            console.log('finished with '+ code)
+            if(code > 0) {
+                reject();
+            } else {
+                resolve();
+            }
         })
     })
 
