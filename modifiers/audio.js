@@ -16,7 +16,6 @@ async function cut(basePath, params) {
             '-ss', params['start'],
             '-to', params['duration'],
             '-i', source
-            // '-acodec', 'copy',
         ]
 
         if (params['fade_in'] > 0 || params['fade_out'] > 0) {

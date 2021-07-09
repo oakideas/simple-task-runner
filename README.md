@@ -45,6 +45,12 @@ it's the configuration file
             "duration": 35,
             "fade_in": 0,
             "fade_out": 0
+        },
+        {
+            "name": "render",
+            "type": "aerender",
+            "source": "./template/template.aep",
+            "target": "./output/video.mov"
         }
     ],
     "targets": [

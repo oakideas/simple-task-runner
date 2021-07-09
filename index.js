@@ -6,6 +6,7 @@ const getJobPath = param => path.resolve(rootPath, param)
 
 const image_resize = require('./modifiers/image').resize
 const audio_cut = require('./modifiers/audio').cut
+const aerender = require('./modifiers/aerender')
 
 async function videoComposer() {
 
@@ -35,15 +36,22 @@ async function videoComposer() {
             case 'image_resize':
                 result = await image_resize(jobRootFolder, modifier).then(() => {
                     log('success')
-                }).catch(() => {
-                    log('fail')
+                }).catch((error) => {
+                    log('fail ' + error)
                 })
                 break
             case 'audio_cut':
                 result = await audio_cut(jobRootFolder, modifier).then(() => {
                     log('success')
-                }).catch(() => {
-                    log('fail')
+                }).catch((error) => {
+                    log('fail ' + error)
+                })
+                break
+            case 'aerender':
+                result = await aerender(jobRootFolder, modifier).then(() => {
+                    log('success')
+                }).catch((error) => {
+                    log('fail ' + error)
                 })
                 break
             default:
