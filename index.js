@@ -27,20 +27,20 @@ async function videoComposer() {
     let result;
 
     //Process modifiers
-    job.modifiers.forEach((modifier) => {
+    for (let i = 0; i < job.modifiers.length; i++) {
+        const modifier = job.modifiers[i];
+
         log(`processing modifier ${modifier.type}`)
         switch (modifier.type) {
             case 'image_resize':
-                result = image_resize(jobRootFolder, modifier)
-                result.then(() => {
+                result = await image_resize(jobRootFolder, modifier).then(() => {
                     log('success')
                 }).catch(() => {
                     log('fail')
                 })
                 break
             case 'audio_cut':
-                result = audio_cut(jobRootFolder, modifier)
-                result.then(() => {
+                result = await audio_cut(jobRootFolder, modifier).then(() => {
                     log('success')
                 }).catch(() => {
                     log('fail')
@@ -50,7 +50,7 @@ async function videoComposer() {
                 log(`modifier doesnt exists`);
         }
         afterEfectsData.objects.push(modifier);
-    })
+    }
 
     //export data to script
     saveAfterEfectsScript(afterEfectsData)
