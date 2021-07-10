@@ -4,9 +4,9 @@ const path = require('path')
 const rootPath = path.resolve(__dirname)
 const getJobPath = param => path.resolve(rootPath, param)
 
-const image_resize = require('./modifiers/image').resize
-const audio_cut = require('./modifiers/audio').cut
-const aerender = require('./modifiers/aerender')
+const image_resize = require('./tasks/image').resize
+const audio_cut = require('./tasks/audio').cut
+const aerender = require('./tasks/aerender')
 
 async function videoComposer() {
 
@@ -27,54 +27,44 @@ async function videoComposer() {
 
     let result;
 
-    //Process modifiers
-    for (let i = 0; i < job.modifiers.length; i++) {
-        const modifier = job.modifiers[i];
+    //Process tasks
+    for (let i = 0; i < job.tasks.length; i++) {
+        const task = job.tasks[i];
 
-        log(`processing modifier ${modifier.type}`)
+        log(`processing task ${task.type}`)
 
-        if(modifier.enable === false) {
-            log(`task disabled ${modifier.type}`)
+        if(task.enabled === false) {
+            log(`task disabled ${task.type}`)
             continue;
         }
 
-        switch (modifier.type) {
+        switch (task.type) {
             case 'image_resize':
-                result = await image_resize(jobRootFolder, modifier, currentData).then(() => {
+                result = await image_resize(jobRootFolder, task, currentData).then(() => {
                     log('success')
                 }).catch((error) => {
                     log('fail ' + error)
                 })
                 break
             case 'audio_cut':
-                result = await audio_cut(jobRootFolder, modifier, currentData).then(() => {
+                result = await audio_cut(jobRootFolder, task, currentData).then(() => {
                     log('success')
                 }).catch((error) => {
                     log('fail ' + error)
                 })
                 break
             case 'aerender':
-                result = await aerender(jobRootFolder, modifier, currentData).then(() => {
+                result = await aerender(jobRootFolder, task, currentData).then(() => {
                     log('success')
                 }).catch((error) => {
                     log('fail ' + error)
                 })
                 break
             default:
-                log(`modifier doesnt exists`);
+                log(`task doesnt exists`);
         }
-        currentData.objects.push(modifier);
+        currentData.objects.push(task);
     }
-
-    // //Send to targets
-    // job.targets.forEach((target) => {
-    //     log(`processing target ${target.type}`)
-    //     switch (target.type) {
-    //         case "youtube":
-    //             break;
-    //     }
-    // })
-
 
     function log(log) {
         console.log(`> ${log}`)

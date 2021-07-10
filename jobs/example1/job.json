@@ -1,12 +1,13 @@
 {
-    "modifiers": [
+    "tasks": [
         {
             "name": "cover",
             "type": "image_resize",
             "source": "./images/1.jpeg",
             "target": "./output/1.png",
             "width": 1920,
-            "height": 1080
+            "height": 1080,
+            "enabled": true
         },
         {
             "name": "intro",
@@ -16,7 +17,8 @@
             "start": 10,
             "duration": 60,
             "fade_in": 10,
-            "fade_out": 10
+            "fade_out": 10,
+            "enabled": true
         },
         {
             "name": "render",
@@ -25,12 +27,6 @@
             "data_target": "./output/data.js",
             "target": "./output/video.mov",
             "enabled": false
-        }
-    ],
-    "targets": [
-        {
-            "name": "youtube",
-            "type": "youtube"
         }
     ]
 }

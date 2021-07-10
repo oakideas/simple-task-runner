@@ -10,6 +10,10 @@ async function cut(basePath, params, currentData) {
         const source = path.resolve(basePath, params['source'])
         const target = path.resolve(basePath, params['target'])
 
+        params.task_output = {
+            'target': target
+        }
+
         let cmd = [
             '-hide_banner',
             '-loglevel', 'error',

@@ -33,7 +33,7 @@ any individual job can be disabled using:
 
 ```
 {
-    "modifiers": [
+    "tasks": [
         {
             "name": "cover",
             "type": "image_resize",
