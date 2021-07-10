@@ -25,6 +25,12 @@ It's a pipeline configuration
 
 it's the configuration file
 
+any individual job can be disabled using:
+```
+"enabled": false
+```
+
+
 ```
 {
     "modifiers": [
@@ -50,6 +56,7 @@ it's the configuration file
             "name": "render",
             "type": "aerender",
             "source": "./template/template.aep",
+            "data_target": "./output/data.js",
             "target": "./output/video.mov"
         }
     ],

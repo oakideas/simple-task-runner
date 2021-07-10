@@ -10,7 +10,7 @@ const aerender = require('./modifiers/aerender')
 
 async function videoComposer() {
 
-    const afterEfectsData = {
+    const currentData = {
         objects: []
     }
 
@@ -32,23 +32,29 @@ async function videoComposer() {
         const modifier = job.modifiers[i];
 
         log(`processing modifier ${modifier.type}`)
+
+        if(modifier.enable === false) {
+            log(`task disabled ${modifier.type}`)
+            continue;
+        }
+
         switch (modifier.type) {
             case 'image_resize':
-                result = await image_resize(jobRootFolder, modifier).then(() => {
+                result = await image_resize(jobRootFolder, modifier, currentData).then(() => {
                     log('success')
                 }).catch((error) => {
                     log('fail ' + error)
                 })
                 break
             case 'audio_cut':
-                result = await audio_cut(jobRootFolder, modifier).then(() => {
+                result = await audio_cut(jobRootFolder, modifier, currentData).then(() => {
                     log('success')
                 }).catch((error) => {
                     log('fail ' + error)
                 })
                 break
             case 'aerender':
-                result = await aerender(jobRootFolder, modifier).then(() => {
+                result = await aerender(jobRootFolder, modifier, currentData).then(() => {
                     log('success')
                 }).catch((error) => {
                     log('fail ' + error)
@@ -57,22 +63,17 @@ async function videoComposer() {
             default:
                 log(`modifier doesnt exists`);
         }
-        afterEfectsData.objects.push(modifier);
+        currentData.objects.push(modifier);
     }
 
-    //export data to script
-    saveAfterEfectsScript(afterEfectsData)
-
-    //Export Video
-
-    //Send to targets
-    job.targets.forEach((target) => {
-        log(`processing target ${target.type}`)
-        switch (target.type) {
-            case "youtube":
-                break;
-        }
-    })
+    // //Send to targets
+    // job.targets.forEach((target) => {
+    //     log(`processing target ${target.type}`)
+    //     switch (target.type) {
+    //         case "youtube":
+    //             break;
+    //     }
+    // })
 
 
     function log(log) {
@@ -83,12 +84,6 @@ async function videoComposer() {
         const fileBuffer = fs.readFileSync(file, 'utf-8')
         const job = JSON.parse(fileBuffer)
         return job
-    }
-
-    function saveAfterEfectsScript(content) {
-        const scriptPath = path.resolve(jobRootFolder, './output/after_efects_data.js')
-        const data = JSON.stringify(content)
-        return fs.writeFileSync(scriptPath, `var content = ${data}`)
     }
 }
 

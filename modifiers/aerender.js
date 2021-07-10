@@ -1,13 +1,17 @@
+const fs = require('fs')
 const spawn = require('child_process').spawn;
 const os = require('os');
 const path = require('path')
 
-async function aerender(basePath, params) {
+async function aerender(basePath, params, currentData) {
 
     return new Promise((resolve, reject) => {
 
         const source = path.resolve(basePath, params['source'])
         const target = path.resolve(basePath, params['target'])
+        const data_target = path.resolve(basePath, params['data_target'])
+
+        createScript(data_target, currentData);
 
         const systemPlatform = os.platform;
         let aerenderPath
@@ -40,6 +44,11 @@ async function aerender(basePath, params) {
             }
         })
     })
+
+    function createScript(outputPath, currentData) {
+        const data = JSON.stringify(currentData)
+        return fs.writeFileSync(outputPath, `var data = ${data}`)
+    }
 
 }
 

@@ -2,7 +2,7 @@ const spawn = require('child_process').spawn
 const path = require('path')
 
 
-async function cut(basePath, params) {
+async function cut(basePath, params, currentData) {
 
     return new Promise((resolve, reject) => {
 
