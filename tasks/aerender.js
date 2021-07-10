@@ -11,6 +11,11 @@ async function aerender(basePath, params, currentData) {
         const target = path.resolve(basePath, params['target'])
         const data_target = path.resolve(basePath, params['data_target'])
 
+        params.task_output = {
+            'target': target,
+            'data_target': data_target
+        }
+
         createScript(data_target, currentData);
 
         const systemPlatform = os.platform;
