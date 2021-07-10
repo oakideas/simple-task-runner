@@ -1,13 +1,15 @@
-# video-composer
-This project intends to implement an audio and image processing pipeline to automate video production.
+# simple-task-runner
+This project intends to implement an simple flow of reusable tasks and automate the execution flow.
 
-At this moment I have no intention of implementing it completely, but just testing the concepts, in any case I intend to complete a minimally functional version as a proof of concept containing:
+- initially this project was designed to automate the flow of video creation, but writing specific tasks can be used for any purpose
+
+At this moment I have no intention of implementing it completely, but just testing the concepts, in any case I intend to complete a minimally functional version to video processing flow as a proof of concept containing:
 - ability to resize image
 - ability to cut audio and add fade
 - creation of a script to be used by an after effects template
 - sending content to youtube
 
-This project was inspired by this other open source project https://github.com/filipedeschamps/video-maker , it's also a proof of concept, but right now it's more complete and documented than this one :)
+This project was inspired by this other open source project https://github.com/filipedeschamps/video-maker, it's also a proof of concept, but right now it's more complete and documented than this one :)
 
 ## Usage
 
@@ -58,12 +60,6 @@ any individual job can be disabled using:
             "source": "./template/template.aep",
             "data_target": "./output/data.js",
             "target": "./output/video.mov"
-        }
-    ],
-    "targets": [
-        {
-            "name": "youtube",
-            "type": "youtube"
         }
     ]
 }
