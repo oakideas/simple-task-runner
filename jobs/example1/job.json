@@ -17,6 +17,14 @@
             "duration": 60,
             "fade_in": 10,
             "fade_out": 10
+        },
+        {
+            "name": "render",
+            "type": "aerender",
+            "source": "./template/template.aep",
+            "data_target": "./output/data.js",
+            "target": "./output/video.mov",
+            "enabled": false
         }
     ],
     "targets": [

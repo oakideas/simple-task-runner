@@ -3,7 +3,7 @@ const path = require('path')
 
 async function resize(basePath, params) {
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject, currentData) => {
         const source = path.resolve(basePath, params['source'])
         const target = path.resolve(basePath, params['target'])
         const width = params['width']
