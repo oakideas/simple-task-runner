@@ -25,8 +25,7 @@ async function runNLU(basePath, params, currentData) {
         }
 
         console.log('>> fetching sentence: ' + sentence);
-        resolve()
-        return;
+
         try {
             const response = await nlu.analyze({
                 text: sentence,
