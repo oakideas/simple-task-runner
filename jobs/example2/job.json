@@ -1,7 +1,7 @@
 {    
     "info": {
-        "name": "Video export",
-        "desciption": "create de resources and automate the creation of a video file"
+        "name": "NLU Demo",
+        "desciption": "Send data to be analized by Watson Natural language understending"
     },
     "tasks": [
         {
