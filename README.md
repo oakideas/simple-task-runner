@@ -74,12 +74,17 @@ TODO: describe the pipeline
 Credits:
 Lobo Loco - Easy Walker (ID 1423).mp3 from https://freemusicarchive.org/music/Lobo_Loco/hot-summer-place/easy-walker-id-1423
 
+### example2
 
+Parser data using watson NLU
+TODO: describe
 
 ## Dependencies
 
 - ffmpeg
 - imageMagic
+
+- ibm-watson
 
 
 ### Installing dependencies on mac os big sur

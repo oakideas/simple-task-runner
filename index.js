@@ -8,14 +8,22 @@ const image_resize = require('./tasks/image').resize
 const audio_cut = require('./tasks/audio').cut
 const aerender = require('./tasks/aerender')
 
-async function videoComposer() {
+const watson_nlu = require('./tasks/watson').runNLU;
+
+async function RunTasks() {
 
     const currentData = {
+        inputParams: {},
         objects: []
     }
 
     const jobName = process.argv[2]
     log(`processing ${jobName}`)
+
+    const inputParamsPath = process.argv[3]
+    if (inputParamsPath) {
+        currentData.inputParams = loadInputParams(inputParamsPath)
+    }
 
     const jobPath = getJobPath(jobName)
     const jobRootFolder = path.dirname(jobPath)
@@ -24,6 +32,7 @@ async function videoComposer() {
 
     const job = loadJob(jobName)
     log(`data ${JSON.stringify(job)}`)
+    log(`data ${JSON.stringify(currentData)}`)
 
     let result;
 
@@ -60,6 +69,13 @@ async function videoComposer() {
                     log('fail ' + error)
                 })
                 break
+            case 'watson_nlu':
+                result = await watson_nlu(jobRootFolder, task, currentData).then(() => {
+                    log('success')
+                }).catch((error) => {
+                    log('fail ' + error)
+                })
+                break
             default:
                 log(`task doesnt exists`);
         }
@@ -75,6 +91,12 @@ async function videoComposer() {
         const job = JSON.parse(fileBuffer)
         return job
     }
+
+    function loadInputParams(inputFile) {
+        const fileBuffer = fs.readFileSync(inputFile, 'utf-8');
+        const inputParams = JSON.parse(fileBuffer);
+        return inputParams;
+    }
 }
 
-videoComposer()
+RunTasks()

@@ -1,0 +1,22 @@
+{    
+    "info": {
+        "name": "NLU Demo",
+        "desciption": "Send data to be analized by Watson Natural language understending"
+    },
+    "tasks": [
+        {
+            "name": "fetch sentence",
+            "type": "watson_nlu",
+            "features": {
+                "concepts": {},
+                "keywords": {},
+                "sentiment": {}
+            },
+            "text": {
+                "type": "reference",
+                "expression": "inputParams.sentence"
+            },
+            "enabled": true
+        }
+    ]
+}
