@@ -13,10 +13,20 @@ async function runNLU(basePath, params, currentData) {
 
     return new Promise(async (resolve, reject) => {
 
-        sentence = params.text;
+        const sentenceObj = params.text;
+
+        let sentence;
+        if (sentenceObj.type === 'reference') {
+            const expression = 'currentData.' + sentenceObj.expression
+            console.log(expression)
+            sentence = eval(expression)
+        } else {
+            sentence = sentenceObj;
+        }
 
         console.log('>> fetching sentence: ' + sentence);
-
+        resolve()
+        return;
         try {
             const response = await nlu.analyze({
                 text: sentence,

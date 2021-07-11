@@ -10,14 +10,20 @@ const aerender = require('./tasks/aerender')
 
 const watson_nlu = require('./tasks/watson').runNLU;
 
-async function videoComposer() {
+async function RunTasks() {
 
     const currentData = {
+        inputParams: {},
         objects: []
     }
 
     const jobName = process.argv[2]
     log(`processing ${jobName}`)
+
+    const inputParamsPath = process.argv[3]
+    if (inputParamsPath) {
+        currentData.inputParams = loadInputParams(inputParamsPath)
+    }
 
     const jobPath = getJobPath(jobName)
     const jobRootFolder = path.dirname(jobPath)
@@ -25,7 +31,8 @@ async function videoComposer() {
     log(`processing ${jobPath} ${jobRootFolder}`)
 
     const job = loadJob(jobName)
-    // log(`data ${JSON.stringify(job)}`)
+    log(`data ${JSON.stringify(job)}`)
+    log(`data ${JSON.stringify(currentData)}`)
 
     let result;
 
@@ -84,6 +91,12 @@ async function videoComposer() {
         const job = JSON.parse(fileBuffer)
         return job
     }
+
+    function loadInputParams(inputFile) {
+        const fileBuffer = fs.readFileSync(inputFile, 'utf-8');
+        const inputParams = JSON.parse(fileBuffer);
+        return inputParams;
+    }
 }
 
-videoComposer()
+RunTasks()
