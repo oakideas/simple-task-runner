@@ -1,4 +1,8 @@
 {
+    "info": {
+        "name": "Video export",
+        "desciption": "create de resources and automate the creation of a video file"
+    },
     "tasks": [
         {
             "name": "cover",

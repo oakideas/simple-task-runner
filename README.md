@@ -81,6 +81,8 @@ Lobo Loco - Easy Walker (ID 1423).mp3 from https://freemusicarchive.org/music/Lo
 - ffmpeg
 - imageMagic
 
+- ibm-watson
+
 
 ### Installing dependencies on mac os big sur
 

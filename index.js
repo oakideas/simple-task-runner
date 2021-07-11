@@ -8,6 +8,8 @@ const image_resize = require('./tasks/image').resize
 const audio_cut = require('./tasks/audio').cut
 const aerender = require('./tasks/aerender')
 
+const watson_nlu = require('./tasks/watson').runNLU;
+
 async function videoComposer() {
 
     const currentData = {
@@ -23,7 +25,7 @@ async function videoComposer() {
     log(`processing ${jobPath} ${jobRootFolder}`)
 
     const job = loadJob(jobName)
-    log(`data ${JSON.stringify(job)}`)
+    // log(`data ${JSON.stringify(job)}`)
 
     let result;
 
@@ -55,6 +57,13 @@ async function videoComposer() {
                 break
             case 'aerender':
                 result = await aerender(jobRootFolder, task, currentData).then(() => {
+                    log('success')
+                }).catch((error) => {
+                    log('fail ' + error)
+                })
+                break
+            case 'watson_nlu':
+                result = await watson_nlu(jobRootFolder, task, currentData).then(() => {
                     log('success')
                 }).catch((error) => {
                     log('fail ' + error)

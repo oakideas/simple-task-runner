@@ -23,6 +23,7 @@
   "homepage": "https://github.com/oakideas/video-composer#readme",
   "dependencies": {
     "gm": "^1.23.1",
+    "ibm-watson": "^6.1.1",
     "inquirer": "^8.1.1"
   }
 }
