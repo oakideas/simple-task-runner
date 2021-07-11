@@ -10,6 +10,8 @@ const aerender = require('./tasks/aerender')
 
 const watson_nlu = require('./tasks/watson').runNLU;
 
+const logger = require('./util/Logger')
+
 async function RunTasks() {
 
     const currentData = {
@@ -18,7 +20,7 @@ async function RunTasks() {
     }
 
     const jobName = process.argv[2]
-    log(`processing ${jobName}`)
+    logger.log(`processing ${jobName}`)
 
     const inputParamsPath = process.argv[3]
     if (inputParamsPath) {
@@ -28,11 +30,11 @@ async function RunTasks() {
     const jobPath = getJobPath(jobName)
     const jobRootFolder = path.dirname(jobPath)
 
-    log(`processing ${jobPath} ${jobRootFolder}`)
+    logger.log(`processing ${jobPath} ${jobRootFolder}`)
 
     const job = loadJob(jobName)
-    log(`data ${JSON.stringify(job)}`)
-    log(`data ${JSON.stringify(currentData)}`)
+    logger.log(`data ${JSON.stringify(job)}`)
+    logger.log(`data ${JSON.stringify(currentData)}`)
 
     let result;
 
@@ -40,50 +42,46 @@ async function RunTasks() {
     for (let i = 0; i < job.tasks.length; i++) {
         const task = job.tasks[i];
 
-        log(`processing task ${task.type}`)
+        logger.log(`processing task ${task.type}`)
 
         if(task.enabled === false) {
-            log(`task disabled ${task.type}`)
+            logger.log(`task disabled ${task.type}`)
             continue;
         }
 
         switch (task.type) {
             case 'image_resize':
                 result = await image_resize(jobRootFolder, task, currentData).then(() => {
-                    log('success')
+                    logger.log('success')
                 }).catch((error) => {
-                    log('fail ' + error)
+                    logger.log('fail ' + error)
                 })
                 break
             case 'audio_cut':
                 result = await audio_cut(jobRootFolder, task, currentData).then(() => {
-                    log('success')
+                    logger.log('success')
                 }).catch((error) => {
-                    log('fail ' + error)
+                    logger.log('fail ' + error)
                 })
                 break
             case 'aerender':
                 result = await aerender(jobRootFolder, task, currentData).then(() => {
-                    log('success')
+                    logger.log('success')
                 }).catch((error) => {
-                    log('fail ' + error)
+                    logger.log('fail ' + error)
                 })
                 break
             case 'watson_nlu':
                 result = await watson_nlu(jobRootFolder, task, currentData).then(() => {
-                    log('success')
+                    logger.log('success')
                 }).catch((error) => {
-                    log('fail ' + error)
+                    logger.log('fail ' + error)
                 })
                 break
             default:
-                log(`task doesnt exists`);
+                logger.log(`task doesnt exists`);
         }
         currentData.objects.push(task);
-    }
-
-    function log(log) {
-        console.log(`> ${log}`)
     }
 
     function loadJob(file) {

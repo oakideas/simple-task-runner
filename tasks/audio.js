@@ -1,6 +1,8 @@
 const spawn = require('child_process').spawn
 const path = require('path')
 
+const logger = require('./util/Logger')
+
 
 async function cut(basePath, params, currentData) {
 
@@ -48,7 +50,7 @@ async function cut(basePath, params, currentData) {
             process.stdout.write(data)
         })
         ffmpeg.on('exit', (code) => {
-            console.log('finished with '+ code)
+            logger.log('finished with '+ code)
             if(code > 0) {
                 reject();
             } else {

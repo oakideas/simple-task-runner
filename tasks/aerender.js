@@ -3,6 +3,8 @@ const spawn = require('child_process').spawn;
 const os = require('os');
 const path = require('path')
 
+const logger = require('./util/Logger')
+
 async function aerender(basePath, params, currentData) {
 
     return new Promise((resolve, reject) => {
@@ -29,7 +31,7 @@ async function aerender(basePath, params, currentData) {
             return reject(new Error(`aerender not available in your system ${systemPlatform}`))
         }
     
-        console.log('starting aerender')
+        logger.log('starting aerender')
     
         const aerender = spawn(aerenderPath, [
             '-comp', 'main',
@@ -41,7 +43,7 @@ async function aerender(basePath, params, currentData) {
             process.stdout.write(data)
         })
         ffmpeg.on('exit', (code) => {
-            console.log('finished with '+ code)
+            logger.log('finished with '+ code)
             if(code > 0) {
                 reject();
             } else {
