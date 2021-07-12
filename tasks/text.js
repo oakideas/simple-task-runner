@@ -1,6 +1,5 @@
-const keyword_extractor = require("keyword-extractor");
 const logger = require('../util/Logger')
-
+const keyword_extractor = require("keyword-extractor")
 
 async function keywordExtractor(basePath, params, currentData) {
 
