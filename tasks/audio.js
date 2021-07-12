@@ -1,7 +1,7 @@
 const spawn = require('child_process').spawn
 const path = require('path')
 
-const logger = require('./util/Logger')
+const logger = require('../util/Logger')
 
 
 async function cut(basePath, params, currentData) {

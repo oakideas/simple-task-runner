@@ -24,6 +24,7 @@
   "dependencies": {
     "gm": "^1.23.1",
     "ibm-watson": "^6.1.1",
-    "inquirer": "^8.1.1"
+    "inquirer": "^8.1.1",
+    "keyword-extractor": "^0.0.20"
   }
 }

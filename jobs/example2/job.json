@@ -16,6 +16,21 @@
                 "type": "reference",
                 "expression": "inputParams.sentence"
             },
+            "enabled": false
+        },
+        {
+            "name": "keyword extractor",
+            "type": "text_keyword_extractor",
+            "text": {
+                "type": "reference",
+                "expression": "inputParams.sentence2"
+            },
+            "options": {
+                "language": "portuguese",
+                "remove_digits": true,
+                "return_changed_case": true,
+                "remove_duplicates": true
+            },
             "enabled": true
         }
     ]
