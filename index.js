@@ -8,7 +8,7 @@ const image_resize = require('./tasks/image').resize
 const audio_cut = require('./tasks/audio').cut
 const aerender = require('./tasks/aerender')
 
-const watson_nlu = require('./tasks/watson').runNLU;
+const watson_nlu = require('./tasks/watson').runNLU
 
 const logger = require('./util/Logger')
 
