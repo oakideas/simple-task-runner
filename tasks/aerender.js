@@ -3,7 +3,7 @@ const spawn = require('child_process').spawn;
 const os = require('os');
 const path = require('path')
 
-const logger = require('./util/Logger')
+const logger = require('../util/Logger')
 
 async function aerender(basePath, params, currentData) {
 

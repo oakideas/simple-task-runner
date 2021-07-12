@@ -60,6 +60,15 @@ any individual job can be disabled using:
             "source": "./template/template.aep",
             "data_target": "./output/data.js",
             "target": "./output/video.mov"
+        },
+        {
+            "name": "keyword extractor",
+            "type": "text_keyword_extractor",
+            "text": {
+                "type": "reference",
+                "expression": "inputParams.sentence"
+            },
+            "enabled": true
         }
     ]
 }
@@ -77,14 +86,17 @@ Lobo Loco - Easy Walker (ID 1423).mp3 from https://freemusicarchive.org/music/Lo
 ### example2
 
 Parser data using watson NLU
-TODO: describe
+TODO: describe (review this job)
 
 ## Dependencies
 
 - ffmpeg
 - imageMagic
 
-- ibm-watson
+- keyword-extractor  https://github.com/michaeldelorenzo/keyword-extractor
+
+- ibm-watson    https://www.npmjs.com/package/watson-developer-cloud  
+                https://github.com/watson-developer-cloud/node-sdk
 
 
 ### Installing dependencies on mac os big sur

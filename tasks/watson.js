@@ -3,8 +3,7 @@ const watsonNLUKey = require('../credentials.json').watson.nlu;
 const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
 const { IamAuthenticator } = require('ibm-watson/auth');
 
-const logger = require('./util/Logger')
-
+const logger = require('../util/Logger')
 
 const nlu = new NaturalLanguageUnderstandingV1({
     authenticator: new IamAuthenticator({ apikey: watsonNLUKey }),

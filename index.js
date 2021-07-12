@@ -10,6 +10,8 @@ const aerender = require('./tasks/aerender')
 
 const watson_nlu = require('./tasks/watson').runNLU
 
+const text_keyword_extractor = require('./tasks/text').keywordExtractor
+
 const logger = require('./util/Logger')
 
 async function RunTasks() {
@@ -78,8 +80,15 @@ async function RunTasks() {
                     logger.log('fail ' + error)
                 })
                 break
+            case 'text_keyword_extractor':
+                result = await text_keyword_extractor(jobRootFolder, task, currentData).then(() => {
+                    logger.log('success')
+                }).catch((error) => {
+                    logger.log('fail ' + error)
+                })
+                break
             default:
-                logger.log(`task doesnt exists`);
+                logger.log(`task type does not exists ${task.type}`);
         }
         currentData.objects.push(task);
     }
