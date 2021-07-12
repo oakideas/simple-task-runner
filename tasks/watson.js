@@ -3,6 +3,9 @@ const watsonNLUKey = require('../credentials.json').watson.nlu;
 const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
 const { IamAuthenticator } = require('ibm-watson/auth');
 
+const logger = require('./util/Logger')
+
+
 const nlu = new NaturalLanguageUnderstandingV1({
     authenticator: new IamAuthenticator({ apikey: watsonNLUKey }),
     version: '2018-04-05',
@@ -18,13 +21,13 @@ async function runNLU(basePath, params, currentData) {
         let sentence;
         if (sentenceObj.type === 'reference') {
             const expression = 'currentData.' + sentenceObj.expression
-            console.log(expression)
+            logger.log(expression)
             sentence = eval(expression)
         } else {
             sentence = sentenceObj;
         }
 
-        console.log('>> fetching sentence: ' + sentence);
+        logger.log('>> fetching sentence: ' + sentence);
 
         try {
             const response = await nlu.analyze({
@@ -36,7 +39,7 @@ async function runNLU(basePath, params, currentData) {
                 }
             })
 
-            console.log(JSON.stringify(response, null, 2));
+            logger.log(JSON.stringify(response, null, 2));
 
             params.task_output = {
                 'response': response
