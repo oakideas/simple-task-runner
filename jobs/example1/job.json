@@ -28,9 +28,10 @@
             "name": "render",
             "type": "aerender",
             "source": "./template/template.aep",
+            "composition": "main",
             "data_target": "./output/data.js",
             "target": "./output/video.mov",
-            "enabled": false
+            "enabled": true
         }
     ]
 }

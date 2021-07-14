@@ -18,38 +18,54 @@ async function aerender(basePath, params, currentData) {
             'data_target': data_target
         }
 
+        composition = 'main'
+        if (params['composition']) {
+            composition = params['composition']
+        }
+
         createScript(data_target, currentData);
 
         const systemPlatform = os.platform;
         let aerenderPath
 
         if (systemPlatform == 'darwin') {
-            aerenderPath = '/Applications/Adobe After Effects CC 2019/aerender'
+            aerenderPath = '/Applications/Adobe After Effects 2021/aerender'
         } else if (systemPlatform == 'win32') {
             aerenderPath = '%programfiles%\Adobe\Adobe After Effects CC\Arquivos de suporte\aerender.exe'
         } else {
             return reject(new Error(`aerender not available in your system ${systemPlatform}`))
         }
     
-        logger.log('starting aerender')
+        logger.log(`starting aerender ${source}`)
+
+        if (fs.existsSync(target)) {
+            fs.unlinkSync(target)
+        }
     
         const aerender = spawn(aerenderPath, [
-            '-comp', 'main',
+            '-comp', composition,
             '-project', source,
             '-output', target
-        ]);
+        ])
 
-        ffmpeg.stdout.on('data', (data) => {
+        aerender.stdout.on('data', (data) => {
             process.stdout.write(data)
         })
-        ffmpeg.on('exit', (code) => {
+
+        aerender.on('exit', (code) => {
             logger.log('finished with '+ code)
             if(code > 0) {
-                reject();
+                reject()
             } else {
-                resolve();
+                resolve()
             }
         })
+
+        aerender.on('error', (err) => {
+            logger.log(err)
+            reject()
+        })
+
     })
 
     function createScript(outputPath, currentData) {
