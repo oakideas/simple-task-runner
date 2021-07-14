@@ -1,0 +1,27 @@
+{
+    "info": {
+        "name": "ASR Demo",
+        "desciption": "crop a audio, sendo to watson ASR, save the result"
+    },
+    "tasks": [
+        {
+            "name": "intro",
+            "type": "audio_cut",
+            "source": "./audio/cincominutos_02_alencar_64kb.mp3",
+            "target": "./output/1.mp3",
+            "start": 0,
+            "duration": 180,
+            "fade_in": 0,
+            "fade_out": 0,
+            "enabled": true
+        },
+        {
+            "name": "ASR",
+            "type": "watson_stt",
+            "source": "./output/1.mp3",
+            "target": "./output/transcription.json",
+            "modelId": "pt-BR_BroadbandModel",
+            "enabled": true
+        }
+    ]
+}
