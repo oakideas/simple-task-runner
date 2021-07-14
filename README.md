@@ -58,6 +58,7 @@ any individual job can be disabled using:
             "name": "render",
             "type": "aerender",
             "source": "./template/template.aep",
+            "composition": "main",
             "data_target": "./output/data.js",
             "target": "./output/video.mov"
         },
