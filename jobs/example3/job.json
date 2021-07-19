@@ -21,7 +21,7 @@
             "source": "./output/1.mp3",
             "target": "./output/transcription.json",
             "model": "pt-BR_BroadbandModel",
-            "enabled": true
+            "enabled": false
         }
     ]
 }
