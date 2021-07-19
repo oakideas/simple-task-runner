@@ -1,0 +1,15 @@
+{
+    "info": {
+        "name": "Mysql Example",
+        "desciption": "runs a query"
+    },
+    "tasks": [
+        {
+            "name": "mysql",
+            "type": "mysql_runquery",
+            "sql": "select * from customer",
+            "target": "./output/query.json",
+            "enabled": true
+        }
+    ]
+}

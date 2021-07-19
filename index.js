@@ -11,6 +11,8 @@ const aerender = require('./tasks/aerender')
 const watson_nlu = require('./tasks/watson').runNLU
 const watson_stt = require('./tasks/watson').runSTT
 
+const mysql_runquery = require('./tasks/mysql').runQuery
+
 const text_keyword_extractor = require('./tasks/text').keywordExtractor
 
 const logger = require('./util/Logger')
@@ -90,6 +92,13 @@ async function RunTasks() {
                 break
             case 'text_keyword_extractor':
                 result = await text_keyword_extractor(jobRootFolder, task, currentData).then(() => {
+                    logger.log('success')
+                }).catch((error) => {
+                    logger.log('fail ' + error)
+                })
+                break
+            case 'mysql_runquery':
+                result = await mysql_runquery(jobRootFolder, task, currentData).then(() => {
                     logger.log('success')
                 }).catch((error) => {
                     logger.log('fail ' + error)

@@ -96,10 +96,15 @@ TODO: describe (review this job)
 Credits: 
 cincominutos_02_alencar_64kb.mp3 from https://librivox.org/cinco-minutos-by-jose-de-alencar/
 
+### example4 - Mysql access
+
+TODO: describe (review this job)
+
 ## Dependencies
 
 - ffmpeg
 - imageMagic
+- mysql - npm install mysql
 
 - keyword-extractor  https://github.com/michaeldelorenzo/keyword-extractor
 
