@@ -20,7 +20,7 @@
             "type": "watson_stt",
             "source": "./output/1.mp3",
             "target": "./output/transcription.json",
-            "modelId": "pt-BR_BroadbandModel",
+            "model": "pt-BR_BroadbandModel",
             "enabled": true
         }
     ]

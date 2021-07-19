@@ -19,7 +19,7 @@ const nlu = new NaturalLanguageUnderstandingV1({
 
 const stt = new SpeechToTextV1({
     authenticator: new IamAuthenticator({ apikey: watsonSTTKey }),
-    serviceUrl: 'https://api.us-south.speech-to-text.watson.cloud.ibm.com'
+    serviceUrl: 'https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/05477204-4682-4db9-81ac-fb42e7b4fb11'
 })
 
 async function runSTT(basePath, params, currentData) {
@@ -29,46 +29,38 @@ async function runSTT(basePath, params, currentData) {
         const source = path.resolve(basePath, params['source'])
         const target = path.resolve(basePath, params['target'])
 
-        // const params = {
-        //     audio: fs.createReadStream('./resources/speech.wav'),
-        //     contentType: 'audio/l16; rate=44100'
-        // };
-        // stt.recognize(params)
-        // .then(response => {
-        //     console.log(JSON.stringify(response.result, null, 2));
-        // })
-        // .catch(err => {
-        //     console.log(err);
-        // });
-
-        // fs.createReadStream('./resources/speech.wav')
-        // .pipe(stt.recognizeUsingWebSocket({ contentType: 'audio/l16; rate=44100' }))
-        // .pipe(fs.createWriteStream('./transcription.txt'));
-
-        const getModelParams = {
-            modelId: params['modelId'],
-        };
+        logger.log(`processing ${source}`);
 
         const sttparams = {
             audio: fs.createReadStream(source),
-            contentType: 'audio/mp3'
+            contentType: 'audio/mp3',
+            model: params['model'],
+            timestamps: true,
+            wordConfidence: true
         };
 
-        stt.getModel(getModelParams);
+        try {
+            res = await stt.recognize(sttparams)
+            .then(response => {
+                logger.log('recognition done');
 
-        stt.recognize(sttparams)
-        .then(response => {
-            logger.log(JSON.stringify(response.result, null, 2));
-            resolve();
-        })
-        .catch(err => {
-            logger.log(err);
-            reject();
-        });
+                const data = JSON.stringify(response.result, null, 2);
+                fs.writeFileSync(target, `${data}`)
 
-        // fs.createReadStream(source)
-        // .pipe(stt.recognizeUsingWebSocket({ contentType: 'audio/mp3' }))
-        // .pipe(fs.createWriteStream(target));
+                logger.log(`result saved on ${target}`);
+
+                resolve();
+            })
+            .catch(err => {
+                logger.log('recognition fail');
+                logger.log(err);
+                reject();
+            });
+        } catch (err) {
+            reject('error: ', err);
+        }
+
+        logger.log('stt done');
 
     });
 }
@@ -105,8 +97,7 @@ async function runNLU(basePath, params, currentData) {
             params.task_output = {
                 'response': response
             }
-
-            resolve()
+            resolve();
         } catch (err) {
             reject('error: ', err);
         }
