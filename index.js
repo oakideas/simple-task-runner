@@ -9,6 +9,7 @@ const audio_cut = require('./tasks/audio').cut
 const aerender = require('./tasks/aerender')
 
 const watson_nlu = require('./tasks/watson').runNLU
+const watson_stt = require('./tasks/watson').runSTT
 
 const text_keyword_extractor = require('./tasks/text').keywordExtractor
 
@@ -75,6 +76,13 @@ async function RunTasks() {
                 break
             case 'watson_nlu':
                 result = await watson_nlu(jobRootFolder, task, currentData).then(() => {
+                    logger.log('success')
+                }).catch((error) => {
+                    logger.log('fail ' + error)
+                })
+                break
+            case 'watson_stt':
+                result = await watson_stt(jobRootFolder, task, currentData).then(() => {
                     logger.log('success')
                 }).catch((error) => {
                     logger.log('fail ' + error)
