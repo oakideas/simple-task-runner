@@ -1,0 +1,12 @@
+{
+    "info": {
+        "name": "Conditional Flor",
+        "desciption": "conditional flow example"
+    },
+    "tasks": [
+        {
+            "type": "placeholder",
+            "enabled": true
+        }
+    ]
+}
