@@ -1,0 +1,24 @@
+{
+    "info": {
+        "name": "Mysql Example",
+        "desciption": "runs a query"
+    },
+    "tasks": [
+        {
+            "name": "mysql",
+            "type": "mysql_runquery",
+            "connection": {
+                "host": "127.0.0.1",
+                "user": "root",
+                "password": "toor",
+                "charset": "utf8",
+                "database": "tmp",
+                "timeout": 60000
+            },
+            "query": "select * from customer",
+            "params": {},
+            "target": "./output/query.json",
+            "enabled": true
+        }
+    ]
+}

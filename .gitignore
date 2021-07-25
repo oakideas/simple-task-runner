@@ -109,3 +109,5 @@ jobs/example1/template/template.aep Logs
 credentials.json
 
 jobs/example3/output/
+
+jobs/example4/output/
