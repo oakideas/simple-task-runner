@@ -26,6 +26,6 @@
     "ibm-watson": "^6.1.1",
     "inquirer": "^8.1.1",
     "keyword-extractor": "^0.0.20",
-    "mysql": "^2.18.1"
+    "mysql-promisify": "^1.0.2"
   }
 }

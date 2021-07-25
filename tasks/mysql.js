@@ -1,36 +1,26 @@
-const mysql = require('mysql');
+const mysql = require('mysql-promisify').MySQL;
 const logger = require('../util/Logger');
+const util = require('util');
 
 async function runQuery(basePath, params, currentData) {
 
     return new Promise(async (resolve, reject) => {
 
-        logger.log('running query');
-        resolve();
-        // const sentenceObj = params.text;
+        const db = new mysql(params['connection']);
 
-        // let sentence;
-        // if (sentenceObj.type === 'reference') {
-        //     const expression = 'currentData.' + sentenceObj.expression
-        //     logger.log(expression)
-        //     sentence = eval(expression)
-        // } else {
-        //     sentence = sentenceObj;
-        // }
+        const { results } = await db.query({
+            sql: params['query'],
+            params: params['params'],
+          });
 
-        // logger.log('>> extracting keywords from sentence: ' + sentence);
-
-        // const extraction_result =
-        // keyword_extractor.extract(sentence, params.options);
-
-        // logger.log(extraction_result);
-
-        // params.task_output = {
-        //     'keywords': extraction_result
-        // }
+        params.task_output = {
+            'results': results
+        }
         
-        // resolve()
-
+        logger.log(JSON.stringify(results));
+        
+        await db.end();
+        resolve();
     })
 
 }
