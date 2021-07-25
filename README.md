@@ -104,7 +104,8 @@ TODO: describe (review this job)
 
 - ffmpeg
 - imageMagic
-- mysql-promisify - npm install mysql-promisify
+- mysql-promisify - https://github.com/AoiYamada/mysql-promisify
+                    npm install mysql-promisify 
 
 - keyword-extractor  https://github.com/michaeldelorenzo/keyword-extractor
 
