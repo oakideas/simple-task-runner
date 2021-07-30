@@ -75,6 +75,34 @@ any individual job can be disabled using:
 }
 ```
 
+## Jobs
+
+### aerender
+call aerender to create a movie
+
+### audio
+call ffmpeg to change a audiofile
+
+### image 
+resize, crop etc
+
+### mysql
+connect a database
+
+### placeholder
+placeholder service
+
+### text 
+process a text. 
+
+### watson
+
+#### Natural Language Undestanding
+call the NLU service on IBM cloud
+
+#### Speach to Text
+Call a speach to text service on IBM clound
+
 ## examples
 
 ### example1
@@ -99,6 +127,7 @@ cincominutos_02_alencar_64kb.mp3 from https://librivox.org/cinco-minutos-by-jose
 ### example4 - Mysql access
 
 TODO: describe (review this job)
+
 
 ## Dependencies
 

@@ -3,10 +3,56 @@
         "name": "Conditional Flor",
         "desciption": "conditional flow example"
     },
-    "tasks": [
+    "functions": {
+        "function1": [
+            {
+                "type": "log",
+                "message": "running function 1"
+            }
+        ],
+        "function2": [
+            {
+                "type": "log",
+                "message": "running function 2"
+            }
+        ]
+    },
+    "main": [
         {
-            "type": "placeholder",
-            "enabled": true
+            "type": "if",
+            "expression": "1 > 0",
+            "true": "function1",
+            "false": "function2"
+        },
+        {
+            "type": "switch",
+            "enable": false,
+            "case": {
+                "x": "function1"
+            },
+            "default": "function2"
+        },
+        {
+            "type": "for",
+            "enable": false,
+            "expression": "",
+            "flow": [
+                {
+                    "type": "log",
+                    "message": "log"
+                }
+            ]
+        },
+        {
+            "type": "foreach",
+            "enable": false,
+            "expression": "",
+            "flow": [
+                {
+                    "type": "log",
+                    "message": "log"
+                }
+            ]
         }
     ]
 }
