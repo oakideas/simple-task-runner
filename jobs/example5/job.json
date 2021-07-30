@@ -15,31 +15,45 @@
                 "type": "log",
                 "message": "running function 2"
             }
+        ],
+        "function3": [
+            {
+                "type": "log",
+                "message": "running function 3"
+            }
         ]
     },
     "main": [
         {
+            "type": "eval",
+            "expression": "x = 0"
+        },
+        {
             "type": "if",
-            "expression": "1 > 0",
+            "expression": "x > 0",
             "true": "function1",
             "false": "function2"
         },
         {
+            "type": "eval",
+            "expression": "y = '3'"
+        },
+        {
             "type": "switch",
-            "enable": false,
+            "expression": "y",
             "case": {
-                "x": "function1"
+                "1": "function1",
+                "2": "function2"
             },
-            "default": "function2"
+            "default": "function3"
         },
         {
             "type": "for",
-            "enable": false,
-            "expression": "",
-            "flow": [
+            "expression": "i = 0; i < 5; i++",
+            "actions": [
                 {
                     "type": "log",
-                    "message": "log"
+                    "message": "log ${i}"
                 }
             ]
         },
@@ -47,7 +61,7 @@
             "type": "foreach",
             "enable": false,
             "expression": "",
-            "flow": [
+            "actions": [
                 {
                     "type": "log",
                     "message": "log"

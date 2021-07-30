@@ -23,11 +23,14 @@ async function Run(jobName) {
 
     await runCommands(script.main);
 
-    async function runCommands(commands) {
+    async function runCommands(commands) 
+    {
 
         while (true) {
 
             let command = commands.shift();
+            let expression = null;
+
             if (command == null) {
                 break;
             }
@@ -35,11 +38,15 @@ async function Run(jobName) {
         
             if (command.enable !== false) {
                 switch (command.type) {
-                    case 'if':
+                    case 'eval':
                         logger.log(`eval ${command.expression}`);
+                        eval(command.expression);
+                        break;
+                    case 'if':
+                        logger.log(`if ${command.expression}`);
 
-                        const result = eval(command.expression);
-                        if(result === true) {
+                        expression = eval(command.expression);
+                        if(expression === true) {
                             logger.log('result true');
                             const commandList = getNewCommandList(command.true);
                             commands = commandList.concat(commands);
@@ -49,8 +56,30 @@ async function Run(jobName) {
                             commands = commandList.concat(commands);
                         }
                         break;
+                    case 'switch':
+                        logger.log(`switch ${command.expression}`);
+
+                        expression = eval(command.expression);
+                        logger.log(`expression ${expression}`);
+
+                        if(expression in command.case) {
+                            const commandList = getNewCommandList(command.case[expression]);
+                            commands = commandList.concat(commands);
+                        } else if(command.default != null) {
+                            logger.log('default');
+                            const commandList = getNewCommandList(command.default);
+                            commands = commandList.concat(commands);
+                        }
+                        break;
+                    case 'for':
+                        const commandList = getNewCommandList(command.actions);
+                        eval(`for (${command.expression}) {
+                            runCommands([...commandList]);
+                          }`);
+                        break;
                     case 'log':
-                        logger.log(`log: ${command.message}`);
+                        const message = eval("`" + command.message + "`;");
+                        logger.log(`log: ${message}`);
                         break;
                     default:
                         logger.log(`unknown command ${command.type}`);
