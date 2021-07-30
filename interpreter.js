@@ -25,7 +25,14 @@ async function Run(jobName) {
 
     async function runCommands(commands) {
 
-        commands.forEach(command => {
+        while (true) {
+
+            let command = commands.shift();
+            if (command == null) {
+                break;
+            }
+            //console.log(command);
+        
             if (command.enable !== false) {
                 switch (command.type) {
                     case 'if':
@@ -35,11 +42,11 @@ async function Run(jobName) {
                         if(result === true) {
                             logger.log('result true');
                             const commandList = getNewCommandList(command.true);
-                            runCommands(commandList);
+                            commands = commandList.concat(commands);
                         } else {
                             logger.log('result false');
                             const commandList = getNewCommandList(command.false);
-                            runCommands(commandList);
+                            commands = commandList.concat(commands);
                         }
                         break;
                     case 'log':
@@ -49,7 +56,7 @@ async function Run(jobName) {
                         logger.log(`unknown command ${command.type}`);
                 }
             }
-        });
+        }
     }
 
     function getNewCommandList(expression) {
