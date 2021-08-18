@@ -56,17 +56,6 @@
                     "message": "log ${i}"
                 }
             ]
-        },
-        {
-            "type": "foreach",
-            "enable": false,
-            "expression": "",
-            "actions": [
-                {
-                    "type": "log",
-                    "message": "log"
-                }
-            ]
         }
     ]
 }

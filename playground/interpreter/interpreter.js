@@ -6,7 +6,7 @@ const path = require('path');
 const rootPath = path.resolve(__dirname);
 const getJobPath = param => path.resolve(rootPath, param);
 
-const logger = require('./util/Logger');
+const logger = require('../../util/Logger');
 
 async function Run(jobName) {
 
@@ -34,7 +34,6 @@ async function Run(jobName) {
             if (command == null) {
                 break;
             }
-            //console.log(command);
         
             if (command.enable !== false) {
                 switch (command.type) {
@@ -105,4 +104,4 @@ async function Run(jobName) {
     }
 }
 
-Run('./jobs/example5/job.json');
+Run('./job.json');
