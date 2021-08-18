@@ -1,0 +1,61 @@
+{
+    "info": {
+        "name": "Conditional Flor",
+        "desciption": "conditional flow example"
+    },
+    "functions": {
+        "function1": [
+            {
+                "type": "log",
+                "message": "running function 1"
+            }
+        ],
+        "function2": [
+            {
+                "type": "log",
+                "message": "running function 2"
+            }
+        ],
+        "function3": [
+            {
+                "type": "log",
+                "message": "running function 3"
+            }
+        ]
+    },
+    "main": [
+        {
+            "type": "eval",
+            "expression": "x = 0"
+        },
+        {
+            "type": "if",
+            "expression": "x > 0",
+            "true": "function1",
+            "false": "function2"
+        },
+        {
+            "type": "eval",
+            "expression": "y = '3'"
+        },
+        {
+            "type": "switch",
+            "expression": "y",
+            "case": {
+                "1": "function1",
+                "2": "function2"
+            },
+            "default": "function3"
+        },
+        {
+            "type": "for",
+            "expression": "i = 0; i < 5; i++",
+            "actions": [
+                {
+                    "type": "log",
+                    "message": "log ${i}"
+                }
+            ]
+        }
+    ]
+}

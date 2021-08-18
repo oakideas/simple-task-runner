@@ -1,15 +1,19 @@
 # simple-task-runner
-This project intends to implement an simple flow of reusable tasks and automate the execution flow.
+This project was intends to implement an simple flow of reusable tasks and automate the execution flow, It's a POC :).
 
-- initially this project was designed to automate the flow of video creation, but writing specific tasks can be used for any purpose
+- the application expects as a parameter the name of a file that describes a list of tasks to be performed.
 
-At this moment I have no intention of implementing it completely, but just testing the concepts, in any case I intend to complete a minimally functional version to video processing flow as a proof of concept containing:
-- ability to resize image
-- ability to cut audio and add fade
-- creation of a script to be used by an after effects template
-- sending content to youtube
+for demonstration purposes, generic tasks with minimal functionality were implemented for:
+- spawn the aerender process to automate video rendering.
+- cut and fade audio files
+- resize image files
+- connect a mysql database and run a query
+- extract keywords from a text
+- use a ASR to convert a audio in text
+- use the natural language understanding to get keywords, concepts and sentiment from a text.
 
 This project was inspired by this other open source project https://github.com/filipedeschamps/video-maker, it's also a proof of concept, but right now it's more complete and documented than this one :)
+
 
 ## Usage
 
@@ -75,6 +79,34 @@ any individual job can be disabled using:
 }
 ```
 
+## Jobs
+
+### aerender
+call aerender to create a movie
+
+### audio
+call ffmpeg to change a audiofile
+
+### image 
+resize, crop etc
+
+### mysql
+connect a database
+
+### placeholder
+placeholder service
+
+### text 
+process a text. 
+
+### watson
+
+#### Natural Language Undestanding
+call the NLU service on IBM cloud
+
+#### Speach to Text
+Call a speach to text service on IBM clound
+
 ## examples
 
 ### example1
@@ -99,6 +131,7 @@ cincominutos_02_alencar_64kb.mp3 from https://librivox.org/cinco-minutos-by-jose
 ### example4 - Mysql access
 
 TODO: describe (review this job)
+
 
 ## Dependencies
 

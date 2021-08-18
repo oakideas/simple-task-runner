@@ -11,6 +11,8 @@ const aerender = require('./tasks/aerender')
 const watson_nlu = require('./tasks/watson').runNLU
 const watson_stt = require('./tasks/watson').runSTT
 
+const placeholder = require('./tasks/placeholder').placeholder
+
 const mysql_runquery = require('./tasks/mysql').runQuery
 
 const text_keyword_extractor = require('./tasks/text').keywordExtractor
@@ -99,6 +101,13 @@ async function RunTasks() {
                 break
             case 'mysql_runquery':
                 result = await mysql_runquery(jobRootFolder, task, currentData).then(() => {
+                    logger.log('success')
+                }).catch((error) => {
+                    logger.log('fail ' + error)
+                })
+                break
+            case 'placeholder':
+                result = await placeholder(jobRootFolder, task, currentData).then(() => {
                     logger.log('success')
                 }).catch((error) => {
                     logger.log('fail ' + error)

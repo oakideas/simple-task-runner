@@ -1,0 +1,1 @@
+this is not a real command interpreter. it's just a proof of concept on how to write logic in json.
